@@ -29,6 +29,7 @@ export default function Leaflet({
       y: 20,
       transition: transitionProps,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDragEnd = async (
@@ -58,6 +59,7 @@ export default function Leaflet({
         transition={transitionProps}
         drag="y"
         dragDirectionLock
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onDragEnd={handleDragEnd}
         dragElastic={{ top: 0, bottom: 1 }}
         dragConstraints={{ top: 0, bottom: 0 }}
