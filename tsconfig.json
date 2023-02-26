@@ -28,7 +28,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "next-env.d.ts", 
+    "next-env.d.ts"
   ],
   "exclude": ["node_modules", "tailwind.config.cjs"]
 }
