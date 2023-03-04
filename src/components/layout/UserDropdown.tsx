@@ -13,7 +13,7 @@ const UserDropdown: React.FC = () => {
   const [openPopover, setOpenPopover] = useState<boolean>(false);
 
   const handleSignOut = () => {
-    void signOut();
+    void signOut({ callbackUrl: "/" });
   };
 
   if (!email) return null;
