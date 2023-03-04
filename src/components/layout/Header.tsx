@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import UserDropdown from "./UserDropdown";
 import { useSignInModal } from "../modals/SignInModal";
+import Image from "next/image";
 
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
@@ -18,9 +19,7 @@ const Header: React.FC = () => {
       <div className="fixed top-0 z-30 w-full border-b border-gray-200 bg-white/50 backdrop-blur-xl transition-all">
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
           <Link href="/" className="flex items-center text-2xl">
-            {session?.user?.name
-              ? `Mes Notes for ${session?.user?.name}`
-              : "Mes Notes"}
+            <Image src="/logo.png" alt="Mes Notes" width={50} height={50} />
           </Link>
           <div>
             <AnimatePresence>
