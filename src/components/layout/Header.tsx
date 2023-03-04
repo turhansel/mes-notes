@@ -17,7 +17,7 @@ const Header: React.FC = () => {
 
       <div className="fixed top-0 z-30 w-full border-b border-gray-200 bg-white/50 backdrop-blur-xl transition-all">
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
-          <Link href="/" className="font-display flex items-center text-2xl">
+          <Link href="/" className="flex items-center text-2xl">
             {session?.user?.name
               ? `Mes Notes for ${session?.user?.name}`
               : "Mes Notes"}

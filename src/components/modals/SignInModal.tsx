@@ -34,7 +34,7 @@ const SignInModal: React.FC<SignInModalProps> = ({
             height={20}
           />
 
-          <h3 className="font-display text-2xl font-bold">Sign In</h3>
+          <h3 className="text-2xl font-bold">Sign In</h3>
           <p className="text-sm text-gray-500">
             Only your email address and profile picture will be stored.
           </p>
