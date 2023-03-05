@@ -9,18 +9,35 @@ import {
 } from "react";
 import Image from "next/image";
 import { Github } from "lucide-react";
-import LoadingDots from "@/components/shared/icons/LoadingDots";
+import Button from "@/components/shared/Button";
+import Google from "@/components/shared/icons/Google";
 
 interface SignInModalProps {
   showSignInModal: boolean;
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }
 
+enum SIGN_IN_PROVIDER {
+  GITHUB = "github",
+  GOOGLE = "google",
+}
+
 const SignInModal: React.FC<SignInModalProps> = ({
   showSignInModal,
   setShowSignInModal,
 }) => {
-  const [signInClicked, setSignInClicked] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const buttonClassName = `${
+    loading
+      ? "cursor-not-allowed border-gray-200 bg-gray-100"
+      : "border border-gray-200 bg-white text-black hover:bg-gray-50"
+  } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`;
+
+  const handleSignIn = useCallback((provider: SIGN_IN_PROVIDER) => {
+    setLoading(true);
+    void signIn(provider, { callbackUrl: "/notes" });
+  }, []);
 
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
@@ -35,27 +52,24 @@ const SignInModal: React.FC<SignInModalProps> = ({
         </div>
 
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-          <button
-            disabled={signInClicked}
-            className={`${
-              signInClicked
-                ? "cursor-not-allowed border-gray-200 bg-gray-100"
-                : "border border-gray-200 bg-white text-black hover:bg-gray-50"
-            } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
-            onClick={() => {
-              setSignInClicked(true);
-              void signIn("github", { callbackUrl: "/notes" });
-            }}
+          <Button
+            disabled={loading}
+            className={buttonClassName}
+            onClick={() => handleSignIn(SIGN_IN_PROVIDER.GITHUB)}
+            loading={loading}
           >
-            {signInClicked ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <>
-                <Github className="h-5 w-5" />
-                <p>Sign In with Github</p>
-              </>
-            )}
-          </button>
+            <Github className="h-5 w-5" />
+            <p>Sign In with Github</p>
+          </Button>
+          <Button
+            disabled={loading}
+            className={buttonClassName}
+            onClick={() => handleSignIn(SIGN_IN_PROVIDER.GOOGLE)}
+            loading={loading}
+          >
+            <Google className="h-5 w-5" />
+            <p>Sign In with Google</p>
+          </Button>
         </div>
       </div>
     </Modal>
