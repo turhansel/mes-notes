@@ -15,17 +15,20 @@ export const NoteCard = ({
   onDelete: () => void;
 }) => {
   return (
-    <div className="mt-5 border border-gray-200 shadow-xl">
+    <div className="group mb-5 border border-gray-200 shadow-xl">
       <div className="m-0 p-3">
         <Accordion type="single" collapsible>
           <AccordionItem value={note.id}>
             <AccordionTrigger>{note.title}</AccordionTrigger>
             <AccordionContent>
-              <article>
+              <article className="prose lg:prose-xl">
                 <ReactMarkdown>{note.content}</ReactMarkdown>
               </article>
               <div className="mx-2 flex justify-end">
-                <button className="px-5" onClick={onDelete}>
+                <button
+                  className="invisible px-5 group-hover:visible"
+                  onClick={onDelete}
+                >
                   Delete
                 </button>
               </div>
