@@ -1,27 +1,22 @@
-"use client";
-
 import Layout from "@/components/layout";
 import LoadingSpinner from "@/components/shared/icons/LoadingSpinner";
 import Content from "@/containers/Content/Content";
 import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-const NotesPage: NextPage = () => {
+const TopicDetail: NextPage = () => {
   const { data: sessionData, status } = useSession();
   const router = useRouter();
 
-  const [isUnauthenticated, loading] = [
-    status === "unauthenticated",
-    status === "loading",
-  ];
+  const loading = status === "loading";
 
   useEffect(() => {
-    if (isUnauthenticated) void router.replace("/");
-  }, [isUnauthenticated, router, sessionData]);
+    if (!sessionData && !loading) void router.replace("/");
+  }, [loading, router, sessionData, status]);
 
-  if (loading || isUnauthenticated)
+  if (loading)
     return (
       <div className="flex h-screen items-center justify-center">
         <LoadingSpinner />
@@ -35,4 +30,4 @@ const NotesPage: NextPage = () => {
   );
 };
 
-export default NotesPage;
+export default TopicDetail;
