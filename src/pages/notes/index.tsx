@@ -12,16 +12,13 @@ const NotesPage: NextPage = () => {
   const { data: sessionData, status } = useSession();
   const router = useRouter();
 
-  const [isUnauthenticated, loading] = [
-    status === "unauthenticated",
-    status === "loading",
-  ];
+  const loading = status === "loading";
 
   useEffect(() => {
-    if (isUnauthenticated) void router.replace("/");
-  }, [isUnauthenticated, router, sessionData]);
+    if (!sessionData) void router.replace("/");
+  }, [router, sessionData, status]);
 
-  if (loading || isUnauthenticated)
+  if (loading)
     return (
       <div className="flex h-screen items-center justify-center">
         <LoadingSpinner />
