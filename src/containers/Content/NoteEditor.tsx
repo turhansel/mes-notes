@@ -34,7 +34,7 @@ export const NoteEditor = ({
   };
 
   return (
-    <div className="bg-base-100 border border-gray-200 p-5 shadow-xl">
+    <div className="border border-gray-200 p-5 shadow-xl">
       <div>
         <h2>
           <Input
