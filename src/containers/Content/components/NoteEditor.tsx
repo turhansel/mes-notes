@@ -35,15 +35,14 @@ export const NoteEditor = ({
 
   return (
     <div className="border border-gray-200 p-5 shadow-xl">
-      <h2>
-        <Input
-          type="text"
-          placeholder="Note title"
-          value={title}
-          className="mb-4 focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          onChange={handleChangeTitle}
-        />
-      </h2>
+      <Input
+        type="text"
+        placeholder="Note title"
+        value={title}
+        className="mb-4 focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        onChange={handleChangeTitle}
+      />
+
       <CodeMirror
         value={code}
         width="500px"
