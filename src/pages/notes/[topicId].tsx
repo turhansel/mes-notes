@@ -13,8 +13,8 @@ const TopicDetail: NextPage = () => {
   const loading = status === "loading";
 
   useEffect(() => {
-    if (!sessionData) void router.replace("/");
-  }, [router, sessionData, status]);
+    if (!sessionData && !loading) void router.replace("/");
+  }, [loading, router, sessionData, status]);
 
   if (loading)
     return (

@@ -15,7 +15,7 @@ const NotesListing: React.FC = () => {
       topicId: topicId ?? "",
     },
     {
-      enabled: sessionData?.user !== undefined && topicId !== null,
+      enabled: sessionData?.user !== undefined && !topicId,
     }
   );
 
