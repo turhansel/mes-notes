@@ -2,7 +2,7 @@ import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
-import { Input } from "../../components/shared/Input";
+import { Input } from "../../../components/shared/Input";
 
 export const NoteEditor = ({
   onSave,
@@ -35,27 +35,26 @@ export const NoteEditor = ({
 
   return (
     <div className="border border-gray-200 p-5 shadow-xl">
-      <div>
-        <h2>
-          <Input
-            type="text"
-            placeholder="Note title"
-            value={title}
-            className="mb-4 focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            onChange={handleChangeTitle}
-          />
-        </h2>
-        <CodeMirror
-          value={code}
-          width="500px"
-          height="30vh"
-          minWidth="100%"
-          minHeight="30vh"
-          extensions={extensions}
-          onChange={handleChangeCode}
-          className="border border-gray-300"
+      <h2>
+        <Input
+          type="text"
+          placeholder="Note title"
+          value={title}
+          className="mb-4 focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          onChange={handleChangeTitle}
         />
-      </div>
+      </h2>
+      <CodeMirror
+        value={code}
+        width="500px"
+        height="30vh"
+        minWidth="100%"
+        minHeight="30vh"
+        extensions={extensions}
+        onChange={handleChangeCode}
+        className="border border-gray-300"
+      />
+
       <div className="justify-end">
         <button
           onClick={handleCreateNote}
