@@ -5,10 +5,29 @@ import { api } from "@/lib/utils/api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import Balancer from "react-wrap-balancer";
+
+const schema = z.object({
+  title: z.string().min(1, { message: "Required" }).max(30),
+});
 
 const SideBar: React.FC = () => {
   const { data: sessionData } = useSession();
   const router = useRouter();
+  const topicId = router.query.topicId as string;
+
+  const {
+    setValue,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
   const {
     data: topics,
     refetch: refetchTopics,
@@ -19,8 +38,8 @@ const SideBar: React.FC = () => {
     {
       enabled: sessionData?.user !== undefined,
       onSuccess: (topics) => {
-        const firstTopic = topics[0];
-        !!topics.length && void router.push(`/notes/${firstTopic?.id ?? ""}`);
+        const firstTopicId = topics[0]?.id;
+        void router.push(`/notes/${topicId ?? firstTopicId ?? ""}`);
       },
     }
   );
@@ -29,36 +48,38 @@ const SideBar: React.FC = () => {
     onSuccess: () => {
       void refetchTopics();
     },
+    onSettled(data) {
+      void router.push(`/notes/${data?.id ?? ""}`);
+    },
   });
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      createTopic.mutate({
-        title: e.currentTarget.value,
-      });
-      e.currentTarget.value = "";
-    }
-  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("e.currentTarget.value ", e.currentTarget.value);
+  const onSubmit: SubmitHandler<FieldValues> = ({ title }) => {
     createTopic.mutate({
-      title: e.currentTarget.value as string,
+      title: title as string,
     });
-    e.currentTarget.value = "";
+    setValue("title", "");
+    console.log("createTopic", createTopic);
   };
 
   const loading = isLoadingTopics || isFetchingTopics;
 
   return (
     <div className="col-span-1">
-      <form className="relative" onSubmit={handleSubmit}>
+      <form
+        className="relative"
+        onSubmit={
+          handleSubmit(onSubmit) as React.FormEventHandler<HTMLFormElement>
+        }
+      >
         <Input
           type="text"
+          id="title"
           placeholder="New Topic"
-          name="topic"
-          className="focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          onKeyDown={handleKeyDown}
+          {...register("title")}
+          aria-invalid={errors.name ? "true" : "false"}
+          className={`focus:ring-2 focus:ring-offset-2 ${
+            !!errors.title ? "focus:ring-red-200" : "focus:ring-primary"
+          }}`}
         />
         <Button
           className="absolute right-2 top-1.5 rounded border-gray-200 bg-primary p-1 text-sm text-white"
@@ -66,6 +87,11 @@ const SideBar: React.FC = () => {
         >
           Create
         </Button>
+        {!!errors.title && (
+          <Balancer className="mt-2 p-2 text-red-500">
+            * {errors.title.message as string}
+          </Balancer>
+        )}
       </form>
 
       <TopicListing topics={topics} loading={loading} />
