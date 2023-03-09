@@ -5,10 +5,14 @@ import { api } from "@/lib/utils/api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Balancer from "react-wrap-balancer";
+
+interface FormValues {
+  title: string;
+}
 
 const schema = z.object({
   title: z.string().min(1, { message: "Required" }).max(30),
@@ -24,7 +28,7 @@ const SideBar: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
 
@@ -53,7 +57,7 @@ const SideBar: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = ({ title }) => {
+  const onSubmit: SubmitHandler<FormValues> = ({ title }) => {
     createTopic.mutate({
       title: title as string,
     });
@@ -64,18 +68,13 @@ const SideBar: React.FC = () => {
 
   return (
     <div className="col-span-1">
-      <form
-        className="relative"
-        onSubmit={
-          handleSubmit(onSubmit) as React.FormEventHandler<HTMLFormElement>
-        }
-      >
+      <form className="relative" onSubmit={handleSubmit(onSubmit)}>
         <Input
           type="text"
           id="title"
           placeholder="New Topic"
           {...register("title")}
-          aria-invalid={errors.name ? "true" : "false"}
+          aria-invalid={errors.title ? "true" : "false"}
           className={`focus:ring-2 focus:ring-offset-2 ${
             !!errors.title ? "focus:ring-red-200" : "focus:ring-primary"
           }}`}
