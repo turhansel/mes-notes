@@ -25,5 +25,8 @@ module.exports = {
         fixStyle: "inline-type-imports",
       },
     ],
+    checksVoidReturn: {
+      attributes: false,
+    },
   },
 };

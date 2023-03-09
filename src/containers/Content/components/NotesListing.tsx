@@ -12,22 +12,22 @@ const NotesListing: React.FC = () => {
 
   const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
     {
-      topicId: topicId ?? "",
+      topicId: topicId,
     },
     {
-      enabled: sessionData?.user !== undefined && !topicId,
+      enabled: sessionData?.user !== undefined && !!topicId,
     }
   );
 
   const createNote = api.note.create.useMutation({
     onSuccess: () => {
-      void refetchNotes();
+      refetchNotes();
     },
   });
 
   const deleteNote = api.note.delete.useMutation({
     onSuccess: () => {
-      void refetchNotes();
+      refetchNotes();
     },
   });
 
@@ -37,14 +37,14 @@ const NotesListing: React.FC = () => {
         <div key={note.id} className="">
           <NoteCard
             note={note}
-            onDelete={() => void deleteNote.mutate({ id: note.id })}
+            onDelete={() => deleteNote.mutate({ id: note.id })}
           />
         </div>
       ))}
 
       <NoteEditor
         onSave={({ title, content }) => {
-          void createNote.mutate({
+          createNote.mutate({
             title,
             content,
             topicId,
