@@ -20,9 +20,9 @@ const SideBar: React.FC = () => {
   const topicId = router.query.topicId as string;
 
   const {
-    setValue,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -57,7 +57,7 @@ const SideBar: React.FC = () => {
     createTopic.mutate({
       title: title as string,
     });
-    setValue("title", "");
+    reset();
   };
 
   const loading = isLoadingTopics || isFetchingTopics;
