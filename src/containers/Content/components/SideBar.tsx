@@ -58,7 +58,6 @@ const SideBar: React.FC = () => {
       title: title as string,
     });
     setValue("title", "");
-    console.log("createTopic", createTopic);
   };
 
   const loading = isLoadingTopics || isFetchingTopics;
