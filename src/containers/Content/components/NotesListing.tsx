@@ -12,7 +12,7 @@ const NotesListing: React.FC = () => {
 
   const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
     {
-      topicId: topicId ?? "",
+      topicId: topicId,
     },
     {
       enabled: sessionData?.user !== undefined && !!topicId,
