@@ -4,8 +4,8 @@ import NotesListing from "@/containers/Content/components/NotesListing";
 
 const Content: React.FC = () => {
   return (
-    <div className="h-screen w-full">
-      <div className="mt-16 grid max-w-screen-xl grid-cols-4 justify-between gap-4 xl:mx-auto">
+    <div className="h-screen w-full p-2 md:p-0">
+      <div className="mt-4 grid max-w-screen-xl grid-cols-4 justify-between gap-4 md:mt-16 xl:mx-auto">
         <SideBar />
 
         <NotesListing />
