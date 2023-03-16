@@ -18,7 +18,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <RWBProvider>
-        <main className={`${inter.variable} font-sans`}>
+        <main
+          className={`${inter.variable} h-screen overflow-hidden font-sans `}
+        >
           <Component {...pageProps} />
         </main>
       </RWBProvider>
