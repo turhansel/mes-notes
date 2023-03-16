@@ -21,7 +21,7 @@ export const NoteCard = ({
           <AccordionItem value={note.id}>
             <AccordionTrigger>{note.title}</AccordionTrigger>
             <AccordionContent>
-              <article className="prose lg:prose-xl">
+              <article className="prose lg:prose-lg">
                 <ReactMarkdown>{note.content}</ReactMarkdown>
               </article>
               <div className="mx-2 flex justify-end">
