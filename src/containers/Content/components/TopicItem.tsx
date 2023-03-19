@@ -1,11 +1,13 @@
-import { api } from "@/lib/utils/api";
 import { type Topic } from "@prisma/client";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-const TopicItem: React.FC<{ topic: Topic }> = ({ topic }) => {
+const TopicItem: React.FC<{
+  topic: Topic;
+  onSelectTopic?: () => void;
+}> = ({ topic, onSelectTopic }) => {
   const router = useRouter();
   const topicId = router.query.topicId as string;
 
@@ -16,7 +18,7 @@ const TopicItem: React.FC<{ topic: Topic }> = ({ topic }) => {
   };
 
   return (
-    <Link href={`/notes/${topic.id}`}>
+    <Link href={`/notes/${topic.id}`} onClick={onSelectTopic && onSelectTopic}>
       <li
         key={topic.id}
         className={`flex items-center justify-between rounded-md p-4 ${
