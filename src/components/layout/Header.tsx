@@ -16,7 +16,7 @@ const Header: React.FC = () => {
     <>
       <SignInModal />
 
-      <div className="fixed top-0 z-30 w-full border-b border-gray-200 bg-white/50 backdrop-blur-xl transition-all">
+      <div className="border-b border-gray-200 bg-white/50 backdrop-blur-xl transition-all">
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
           <Link href="/" className="flex items-center text-2xl">
             <Image src="/logo.png" alt="Mes Notes" width={50} height={50} />
