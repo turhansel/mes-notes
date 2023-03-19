@@ -11,7 +11,7 @@ const Layout: React.FC<PropsWithChildren<{ meta?: MetaProps }>> = ({
     <>
       <Meta {...meta} />
       <Header />
-      <main className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-cyan-100 py-16">
+      <main className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-cyan-100 sm:py-8">
         {children}
       </main>
     </>

@@ -10,7 +10,7 @@ const Content: React.FC = () => {
   return (
     <div className="h-screen w-full p-2 md:p-0">
       {isMobile && <AddTopicForm />}
-      <div className="mt-4 grid max-w-screen-xl grid-cols-12 justify-between gap-4 sm:grid-cols-4 md:mt-16 xl:mx-auto h-full">
+      <div className="mt-4 grid max-w-screen-xl grid-cols-12 justify-between gap-4 sm:grid-cols-4 xl:mx-auto h-full">
         <div className="relative col-span-1 sm:col-span-1 ">
           <SideBar />
         </div>
