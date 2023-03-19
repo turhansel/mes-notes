@@ -32,7 +32,7 @@ const NotesListing: React.FC = () => {
   });
 
   return (
-    <div className="col-span-3 flex flex-col">
+    <>
       {notes?.map((note) => (
         <div key={note.id} className="">
           <NoteCard
@@ -51,7 +51,7 @@ const NotesListing: React.FC = () => {
           });
         }}
       />
-    </div>
+    </>
   );
 };
 

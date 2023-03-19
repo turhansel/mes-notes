@@ -45,7 +45,7 @@ export const NoteEditor = ({
 
   return (
     <form
-      className="rounded-lg border border-gray-200 p-5 shadow-xl"
+      className="rounded-lg border border-gray-200 p-5 shadow-xl "
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
@@ -61,7 +61,7 @@ export const NoteEditor = ({
         name="content"
         render={({ field: { onChange, onBlur, value } }) => (
           <CodeMirror
-            width="500px"
+            width="100%"
             height="30vh"
             minWidth="100%"
             minHeight="30vh"
