@@ -31,10 +31,10 @@ const SideBar: React.FC = () => {
   const loading = isLoadingTopics || isFetchingTopics;
 
   return (
-    <div className="col-span-1">
+    <>
       <AddTopicForm />
       <TopicListing topics={topics} loading={loading} />
-    </div>
+    </>
   );
 };
 
