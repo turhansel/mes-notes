@@ -32,6 +32,9 @@ export const noteRouter = createTRPCRouter({
         where: {
           topicId: input.topicId,
         },
+        orderBy: {
+          updatedAt: "desc",
+        },
       });
     }),
 });
