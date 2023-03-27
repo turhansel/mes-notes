@@ -7,6 +7,9 @@ export const topicRouter = createTRPCRouter({
       where: {
         authorId: ctx.session.user.id,
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
   }),
 
