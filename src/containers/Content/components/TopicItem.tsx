@@ -1,3 +1,4 @@
+import { api } from "@/lib/utils/api";
 import { type Topic } from "@prisma/client";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -13,8 +14,14 @@ const TopicItem: React.FC<{
 
   const isSelected = topicId === topic.id;
 
-  const handleRemove = (id: string) => {
-    console.log("id", id);
+  const deleteTopic = api.topic.delete.useMutation({
+    onSuccess: () => {
+      router.push(`/notes`);
+    },
+  });
+
+  const handleDelete = (id: string) => {
+    deleteTopic.mutate({ id });
   };
 
   return (
@@ -31,7 +38,7 @@ const TopicItem: React.FC<{
           className="text-red-500"
           onClick={(e) => {
             e.preventDefault();
-            handleRemove(topic.id);
+            handleDelete(topic.id);
           }}
         >
           <Trash2 className="h-5 w-5 text-red-500" />
