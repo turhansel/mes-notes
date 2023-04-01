@@ -10,7 +10,7 @@ const TopicListing: React.FC<{
 }> = ({ topics, loading, onSelectTopic }) => {
   if (loading) return <LoadingSpinner />;
 
-  return (
+  return !!topics?.length ? (
     <div className="mt-2 max-h-[70vh] overflow-auto rounded-md border border-blue-300 p-2">
       <ul className="w-full">
         {topics?.map((topic) => (
@@ -22,6 +22,8 @@ const TopicListing: React.FC<{
         ))}
       </ul>
     </div>
+  ) : (
+    <p>No topics</p>
   );
 };
 
